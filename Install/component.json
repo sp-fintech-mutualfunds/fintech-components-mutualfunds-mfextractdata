@@ -1,0 +1,61 @@
+{
+	"name" : "MFExtractdata",
+	"route" : "mf/extractdata",
+	"description" : "<p>Mutual Fund extract data from external sites and repositories.</p>",
+	"module_type" : "components",
+	"app_type" : "fintech",
+	"category" : "mutualfunds",
+	"version" : "0.0.0",
+	"repo" : "https://github.com/sp-fintech/fintech-components-mutualfunds-mfextractdata",
+	"class" : "Apps\\Fintech\\Components\\Mf\\Extractdata\\ExtractdataComponent",
+	"dependencies" : 
+	{
+		"core" : 
+		{
+			"name" : "Core",
+			"version" : "0.0.0-rc.9",
+			"repo" : "https://github.com/sp-framework/core"
+		},
+		"apptype" : 
+		{
+			"name" : "Fintech",
+			"version" : "0.3.0",
+			"repo" : "https://github.com/sp-fintech/fintech"
+		},
+		"packages" : 
+		[
+			{
+				"name" : "MfExtractdata",
+				"version" : "0.0.0",
+				"repo" : "https://github.com/sp-fintech/fintech-packages-mutualfunds-mfextractdata"
+			}
+		],
+		"middlewares" : [],
+		"views" : 
+		[
+			{
+				"name" : "MfExtractdata",
+				"version" : "0.0.0",
+				"repo" : "https://github.com/sp-fintech/fintech-views-mutualfunds-default-mfextractdata"
+			}
+		],
+		"externals" : 
+		{
+			"composer" : 
+			{
+				"require" : []
+			},
+			"config" : 
+			{
+				"allow-plugins" : []
+			},
+			"extra" : 
+			{
+				"patches" : []
+			}
+		}
+	},
+	"menu" : "false",
+	"settings" : [],
+	"widgets" : []
+}
