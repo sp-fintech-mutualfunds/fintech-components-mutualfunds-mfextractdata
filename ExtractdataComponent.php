@@ -48,17 +48,16 @@ class ExtractdataComponent extends BaseComponent
         try {
             $success = false;
 
-            if (isset($this->postData()['mf']) && $this->postData()['mf'] == 'true') {
-                $this->mfExtractDataPackage->downloadMfData();
-                $this->mfExtractDataPackage->extractMfData();
-                $this->mfExtractDataPackage->processMfData();
-            }
+            $this->mfExtractDataPackage->downloadMfData($this->postData());
+            $this->mfExtractDataPackage->extractMfData($this->postData());
+            $this->mfExtractDataPackage->processMfData($this->postData());
 
             $this->addResponse(
                 $this->mfExtractDataPackage->packagesData->responseMessage,
                 $this->mfExtractDataPackage->packagesData->responseCode
             );
         } catch (\throwable $e) {
+            trace([$e]);
             $this->basepackages->progress->preCheckComplete(false);
 
             $this->basepackages->progress->resetProgress();
@@ -71,31 +70,25 @@ class ExtractdataComponent extends BaseComponent
     {
         $methods = [];
 
-        if (isset($this->postData()['mf']) && $this->postData()['mf'] == 'true') {
-            $methods = array_merge($methods,
+        $methods = array_merge($methods,
+            [
                 [
-                    [
-                        'method'    => 'downloadMfData',
-                        'text'      => 'Download Mutual Fund Data...',
-                        'remoteWeb' => true
-                    ],
-                    [
-                        'method'    => 'extractMfData',
-                        'text'      => 'Extracting Mutual Fund Data...',
-                        'steps'     => true
-                    ],
-                    [
-                        'method'    => 'processMfData',
-                        'text'      => 'Process Extracted Mutual Fund Data...',
-                        'steps'     => true
-                    ]
+                    'method'    => 'downloadMfData',
+                    'text'      => 'Download Mutual Fund Data...',
+                    'remoteWeb' => true
+                ],
+                [
+                    'method'    => 'extractMfData',
+                    'text'      => 'Extracting Mutual Fund Data...',
+                    'steps'     => true
+                ],
+                [
+                    'method'    => 'processMfData',
+                    'text'      => 'Process Extracted Mutual Fund Data...',
+                    'steps'     => true
                 ]
-            );
-        }
-
-        if (count($methods) === 0) {
-            return false;
-        }
+            ]
+        );
 
         $this->basepackages->progress->registerMethods($methods);
 
