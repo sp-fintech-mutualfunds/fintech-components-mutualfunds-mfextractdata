@@ -49,8 +49,8 @@ class ExtractdataComponent extends BaseComponent
             $success = false;
 
             if (isset($this->postData()['mf']) && $this->postData()['mf'] == 'true') {
-                // $this->mfExtractDataPackage->downloadMfData();
-                // $this->mfExtractDataPackage->extractMfData();
+                $this->mfExtractDataPackage->downloadMfData();
+                $this->mfExtractDataPackage->extractMfData();
                 $this->mfExtractDataPackage->processMfData();
             }
 
@@ -74,16 +74,16 @@ class ExtractdataComponent extends BaseComponent
         if (isset($this->postData()['mf']) && $this->postData()['mf'] == 'true') {
             $methods = array_merge($methods,
                 [
-                    // [
-                    //     'method'    => 'downloadMfData',
-                    //     'text'      => 'Download Mutual Fund Data...',
-                    //     'remoteWeb' => true
-                    // ],
-                    // [
-                    //     'method'    => 'extractMfData',
-                    //     'text'      => 'Extracting Mutual Fund Data...',
-                    //     'steps'     => true
-                    // ],
+                    [
+                        'method'    => 'downloadMfData',
+                        'text'      => 'Download Mutual Fund Data...',
+                        'remoteWeb' => true
+                    ],
+                    [
+                        'method'    => 'extractMfData',
+                        'text'      => 'Extracting Mutual Fund Data...',
+                        'steps'     => true
+                    ],
                     [
                         'method'    => 'processMfData',
                         'text'      => 'Process Extracted Mutual Fund Data...',
