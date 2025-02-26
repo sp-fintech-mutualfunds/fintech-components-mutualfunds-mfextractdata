@@ -39,12 +39,6 @@ class ExtractdataComponent extends BaseComponent
             $this->basepackages->progress->deleteProgressFile();
         }
 
-        if (!$this->registerProgressMethods()) {
-            $this->addResponse('No Methods Selected', 1);
-
-            return;
-        }
-
         try {
             $success = false;
 
@@ -57,7 +51,6 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->packagesData->responseCode
             );
         } catch (\throwable $e) {
-            trace([$e]);
             $this->basepackages->progress->preCheckComplete(false);
 
             $this->basepackages->progress->resetProgress();
