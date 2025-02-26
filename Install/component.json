@@ -28,6 +28,12 @@
 				"name" : "MfExtractdata",
 				"version" : "0.0.0",
 				"repo" : "https://github.com/sp-fintech/fintech-packages-mutualfunds-mfextractdata"
+			},
+			
+			{
+				"name" : "MfNavs",
+				"version" : "0.0.0",
+				"repo" : "https://github.com/sp-fintech/fintech-packages-mutualfunds-mfnavs"
 			}
 		],
 		"middlewares" : [],
