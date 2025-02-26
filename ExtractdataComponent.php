@@ -39,6 +39,8 @@ class ExtractdataComponent extends BaseComponent
             $this->basepackages->progress->deleteProgressFile();
         }
 
+        $this->registerProgressMethods();
+
         try {
             $success = false;
 
