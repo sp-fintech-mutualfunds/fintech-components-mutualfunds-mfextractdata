@@ -42,7 +42,14 @@ class ExtractdataComponent extends BaseComponent
         $this->registerProgressMethods();
 
         try {
-            $success = false;
+            if ($this->postData()['schemes'] == 'false' &&
+                $this->postData()['redownload'] == 'false' &&
+                $this->postData()['reset'] == 'false'
+            ) {
+                $this->addResponse('Nothing selected!', 1);
+
+                return;
+            }
 
             $this->mfExtractDataPackage->downloadMfData($this->postData());
             $this->mfExtractDataPackage->extractMfData($this->postData());
@@ -50,9 +57,11 @@ class ExtractdataComponent extends BaseComponent
 
             $this->addResponse(
                 $this->mfExtractDataPackage->packagesData->responseMessage,
-                $this->mfExtractDataPackage->packagesData->responseCode
+                $this->mfExtractDataPackage->packagesData->responseCode,
+                $this->mfExtractDataPackage->packagesData->responseData ?? [],
             );
         } catch (\throwable $e) {
+            trace([$e]);
             $this->basepackages->progress->preCheckComplete(false);
 
             $this->basepackages->progress->resetProgress();
@@ -85,7 +94,7 @@ class ExtractdataComponent extends BaseComponent
             ]
         );
 
-        $this->basepackages->progress->registerMethods($methods);
+        $this->basepackages->progress->init(null, 'mfextractdata')->registerMethods($methods);
 
         return true;
     }
