@@ -35,8 +35,8 @@ class ExtractdataComponent extends BaseComponent
     {
         $this->requestIsPost();
 
-        if ($this->basepackages->progress->checkProgressFile()) {
-            $this->basepackages->progress->deleteProgressFile();
+        if ($this->basepackages->progress->checkProgressFile('mfextractdata')) {
+            $this->basepackages->progress->deleteProgressFile('mfextractdata');
         }
 
         $this->registerProgressMethods();
@@ -61,7 +61,6 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->packagesData->responseData ?? [],
             );
         } catch (\throwable $e) {
-            trace([$e]);
             $this->basepackages->progress->preCheckComplete(false);
 
             $this->basepackages->progress->resetProgress();
