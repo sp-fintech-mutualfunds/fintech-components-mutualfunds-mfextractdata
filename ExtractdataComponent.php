@@ -36,24 +36,30 @@ class ExtractdataComponent extends BaseComponent
         $this->requestIsPost();
 
         if ($this->basepackages->progress->checkProgressFile('mfextractdata')) {
-            $this->basepackages->progress->deleteProgressFile('mfextractdata');
+            $this->basepackages->progress->deleteProgressFile();
         }
 
         $this->registerProgressMethods();
 
         try {
             if ($this->postData()['schemes'] == 'false' &&
-                $this->postData()['redownload'] == 'false' &&
-                $this->postData()['reset'] == 'false'
+                $this->postData()['downloadnav'] == 'false'
             ) {
                 $this->addResponse('Nothing selected!', 1);
 
                 return;
             }
 
-            $this->mfExtractDataPackage->downloadMfData($this->postData());
-            $this->mfExtractDataPackage->extractMfData($this->postData());
-            $this->mfExtractDataPackage->processMfData($this->postData());
+            if ($this->postData()['schemes'] == 'true') {
+                $this->mfExtractDataPackage->downloadMfData();
+                $this->mfExtractDataPackage->processMfData();
+            }
+
+            if ($this->postData()['downloadnav'] == 'true') {
+                $this->mfExtractDataPackage->downloadMfData(false, true);
+                $this->mfExtractDataPackage->extractMfData();
+                $this->mfExtractDataPackage->processMfData(false, true);
+            }
 
             $this->addResponse(
                 $this->mfExtractDataPackage->packagesData->responseMessage,
@@ -61,6 +67,7 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->packagesData->responseData ?? [],
             );
         } catch (\throwable $e) {
+            trace([$e]);
             $this->basepackages->progress->preCheckComplete(false);
 
             $this->basepackages->progress->resetProgress();
@@ -73,29 +80,61 @@ class ExtractdataComponent extends BaseComponent
     {
         $methods = [];
 
-        $methods = array_merge($methods,
-            [
+        if ($this->postData()['schemes'] == 'true') {
+            $methods = array_merge($methods,
                 [
-                    'method'    => 'downloadMfData',
-                    'text'      => 'Download Mutual Fund Data...',
-                    'remoteWeb' => true
-                ],
-                [
-                    'method'    => 'extractMfData',
-                    'text'      => 'Extracting Mutual Fund Data...',
-                    'steps'     => true
-                ],
-                [
-                    'method'    => 'processMfData',
-                    'text'      => 'Process Extracted Mutual Fund Data...',
-                    'steps'     => true
+                    [
+                        'method'    => 'downloadMfData',
+                        'text'      => 'Download Mutual Fund Schemes Data...',
+                        'remoteWeb' => true
+                    ],
+                    [
+                        'method'    => 'processMfData',
+                        'text'      => 'Process Extracted Mutual Fund Schemes Data...',
+                        'steps'     => true
+                    ]
                 ]
-            ]
-        );
+            );
+        }
+
+        if ($this->postData()['downloadnav'] == 'true') {
+            $methods = array_merge($methods,
+                [
+                    [
+                        'method'    => 'downloadMfData',
+                        'text'      => 'Download Mutual Fund Nav Data...',
+                        'remoteWeb' => true
+                    ],
+                    [
+                        'method'    => 'extractMfData',
+                        'text'      => 'Extracting & Indexing Mutual Fund Nav Data...',
+                        'steps'     => true
+                    ],
+                    [
+                        'method'    => 'processMfData',
+                        'text'      => 'Process Extracted Mutual Fund Nav Data...',
+                        'steps'     => true
+                    ]
+                ]
+            );
+        }
 
         $this->basepackages->progress->init(null, 'mfextractdata')->registerMethods($methods);
 
         return true;
+    }
+
+    public function getAllNavDataAction()
+    {
+        $this->requestIsPost();
+
+        $this->mfExtractDataPackage->processMfData(false, true, $this->postData());
+
+        $this->addResponse(
+            $this->mfExtractDataPackage->packagesData->responseMessage,
+            $this->mfExtractDataPackage->packagesData->responseCode,
+            $this->mfExtractDataPackage->packagesData->responseData ?? []
+        );
     }
 
     public function syncAction()
