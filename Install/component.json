@@ -1,12 +1,12 @@
 {
-	"name" : "MFExtractdata",
+	"name" : "Mutual Fund Extractdata",
 	"route" : "mf/extractdata",
-	"description" : "<p>Mutual Fund extract data from external sites and repositories.</p>",
+	"description" : "<p>Mutual Fund Extractdata</p>",
 	"module_type" : "components",
 	"app_type" : "fintech",
 	"category" : "mutualfunds",
-	"version" : "0.8.0",
-	"repo" : "https://github.com/sp-fintech/fintech-components-mutualfunds-mfextractdata",
+	"version" : "0.9.0",
+	"repo" : "https://github.com/sp-fintech-mutualfunds/fintech-components-mutualfunds-mfextractdata",
 	"class" : "Apps\\Fintech\\Components\\Mf\\Extractdata\\ExtractdataComponent",
 	"dependencies" : 
 	{
