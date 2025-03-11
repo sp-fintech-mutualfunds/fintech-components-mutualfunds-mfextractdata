@@ -41,8 +41,8 @@
 		[
 			{
 				"name" : "MfExtractdata",
-				"version" : "0.0.0",
-				"repo" : "https://github.com/sp-fintech/fintech-views-mutualfunds-default-mfextractdata"
+				"version" : "0.6.0",
+				"repo" : "https://github.com/sp-fintech-mutualfunds/fintech-views-mutualfunds-default-mfextractdata"
 			}
 		],
 		"externals" : 
