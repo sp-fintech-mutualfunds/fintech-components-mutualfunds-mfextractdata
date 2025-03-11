@@ -1,12 +1,12 @@
 {
-	"name" : "MFExtractdata",
+	"name" : "Mutual Fund Extractdata",
 	"route" : "mf/extractdata",
-	"description" : "<p>Mutual Fund extract data from external sites and repositories.</p>",
+	"description" : "<p>Mutual Fund Extractdata</p>",
 	"module_type" : "components",
 	"app_type" : "fintech",
 	"category" : "mutualfunds",
 	"version" : "0.9.0",
-	"repo" : "https://github.com/sp-fintech/fintech-components-mutualfunds-mfextractdata",
+	"repo" : "https://github.com/sp-fintech-mutualfunds/fintech-components-mutualfunds-mfextractdata",
 	"class" : "Apps\\Fintech\\Components\\Mf\\Extractdata\\ExtractdataComponent",
 	"dependencies" : 
 	{
@@ -26,14 +26,14 @@
 		[
 			{
 				"name" : "MfExtractdata",
-				"version" : "0.0.0",
-				"repo" : "https://github.com/sp-fintech/fintech-packages-mutualfunds-mfextractdata"
+				"version" : "0.29.0",
+				"repo" : "https://github.com/sp-fintech-mutualfunds/fintech-packages-mutualfunds-mfextractdata"
 			},
 			
 			{
 				"name" : "MfNavs",
-				"version" : "0.0.0",
-				"repo" : "https://github.com/sp-fintech/fintech-packages-mutualfunds-mfnavs"
+				"version" : "0.1.0",
+				"repo" : "https://github.com/sp-fintech-mutualfunds/fintech-packages-mutualfunds-mfnavs"
 			}
 		],
 		"middlewares" : [],
