@@ -30,6 +30,8 @@ class ExtractdataComponent extends BaseComponent
     //https://api.kuvera.in/mf/api/v5/fund_amcs.json - All amcs
     //https://api.kuvera.in/mf/api/v4/fund_schemes/list.json - All schemes
     //https://github.com/captn3m0/historical-mf-data/releases/latest/download/funds.db.zst
+    //https://github.com/sp-fintech-mutualfunds/historical-mf-data/releases/latest/download/funds.db.zst
+    //https://github.com/sp-fintech-mutualfunds/historical-mf-data/releases/latest/download/latest.db.zst
     //
     public function processAction()
     {
@@ -128,7 +130,7 @@ class ExtractdataComponent extends BaseComponent
     {
         $this->requestIsPost();
 
-        $this->mfExtractDataPackage->processMfData(false, true, $this->postData());
+        $this->mfExtractDataPackage->processMfData(false, false, true, $this->postData());
 
         $this->addResponse(
             $this->mfExtractDataPackage->packagesData->responseMessage,
