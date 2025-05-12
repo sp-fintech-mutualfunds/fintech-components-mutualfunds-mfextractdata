@@ -53,14 +53,14 @@ class ExtractdataComponent extends BaseComponent
             }
 
             if ($this->postData()['schemes'] == 'true') {
-                $this->mfExtractDataPackage->downloadMfData();
-                $this->mfExtractDataPackage->processMfData();
+                $this->mfExtractDataPackage->downloadMfSchemesData();
+                $this->mfExtractDataPackage->processMfSchemesData();
             }
 
             if ($this->postData()['downloadnav'] == 'true') {
-                $this->mfExtractDataPackage->downloadMfData(false, true);
-                $this->mfExtractDataPackage->extractMfData();
-                $this->mfExtractDataPackage->processMfData(false, true);
+                $this->mfExtractDataPackage->downloadMfNavsData(true);
+                $this->mfExtractDataPackage->extractMfNavsData();
+                $this->mfExtractDataPackage->processMfNavsData(true);
             }
 
             $this->addResponse(
@@ -86,12 +86,12 @@ class ExtractdataComponent extends BaseComponent
             $methods = array_merge($methods,
                 [
                     [
-                        'method'    => 'downloadMfData',
+                        'method'    => 'downloadMfSchemesData',
                         'text'      => 'Download Mutual Fund Schemes Data...',
                         'remoteWeb' => true
                     ],
                     [
-                        'method'    => 'processMfData',
+                        'method'    => 'processMfSchemesData',
                         'text'      => 'Process Extracted Mutual Fund Schemes Data...',
                         'steps'     => true
                     ]
@@ -103,17 +103,17 @@ class ExtractdataComponent extends BaseComponent
             $methods = array_merge($methods,
                 [
                     [
-                        'method'    => 'downloadMfData',
+                        'method'    => 'downloadMfNavsData',
                         'text'      => 'Download Mutual Fund Nav Data...',
                         'remoteWeb' => true
                     ],
                     [
-                        'method'    => 'extractMfData',
+                        'method'    => 'extractMfNavsData',
                         'text'      => 'Extracting & Indexing Mutual Fund Nav Data...',
                         'steps'     => true
                     ],
                     [
-                        'method'    => 'processMfData',
+                        'method'    => 'processMfNavsData',
                         'text'      => 'Process Extracted Mutual Fund Nav Data...',
                         'steps'     => true
                     ]
@@ -130,7 +130,7 @@ class ExtractdataComponent extends BaseComponent
     {
         $this->requestIsPost();
 
-        $this->mfExtractDataPackage->processMfData(false, false, true, $this->postData());
+        $this->mfExtractDataPackage->processMfNavsData(false, true, $this->postData());
 
         $this->addResponse(
             $this->mfExtractDataPackage->packagesData->responseMessage,
