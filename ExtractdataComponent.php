@@ -54,6 +54,7 @@ class ExtractdataComponent extends BaseComponent
 
             if ($this->postData()['schemes'] == 'true') {
                 $this->mfExtractDataPackage->downloadMfSchemesData();
+                $this->mfExtractDataPackage->extractMfSchemesData();
                 $this->mfExtractDataPackage->processMfSchemesData();
             }
 
@@ -89,6 +90,10 @@ class ExtractdataComponent extends BaseComponent
                         'method'    => 'downloadMfSchemesData',
                         'text'      => 'Download Mutual Fund Schemes Data...',
                         'remoteWeb' => true
+                    ],
+                    [
+                        'method'    => 'extractMfSchemesData',
+                        'text'      => 'Extracting Mutual Fund Schemes Data...'
                     ],
                     [
                         'method'    => 'processMfSchemesData',
