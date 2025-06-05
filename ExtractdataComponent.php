@@ -58,9 +58,9 @@ class ExtractdataComponent extends BaseComponent
             }
 
             if ($this->postData()['downloadnav'] == 'true') {
-                $this->mfExtractDataPackage->downloadMfNavsData(true);
+                $this->mfExtractDataPackage->downloadMfNavsData();
                 $this->mfExtractDataPackage->extractMfNavsData();
-                $this->mfExtractDataPackage->processMfNavsData(true);
+                $this->mfExtractDataPackage->processMfNavsData();
             }
 
             $this->addResponse(

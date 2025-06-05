@@ -61,7 +61,24 @@
 			}
 		}
 	},
-	"menu" : "false",
+	"menu" : 
+	{
+		"mf" : 
+		{
+			"title" : "mf",
+			"icon" : "file-invoice-dollar",
+			"childs" : 
+			{
+				"extract data" : 
+				{
+					"title" : "extract data",
+					"icon" : "cloud-download",
+					"link" : "mf/extractdata"
+				}
+			}
+		},
+		"seq" : "0"
+	},
 	"settings" : [],
 	"widgets" : []
 }
