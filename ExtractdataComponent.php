@@ -22,6 +22,9 @@ class ExtractdataComponent extends BaseComponent
         );
     }
 
+    /**
+     * @acl(name=view)
+     */
     public function viewAction()
     {
         $this->view->apis = $this->mfExtractDataPackage->getAvailableApis(false, false);
