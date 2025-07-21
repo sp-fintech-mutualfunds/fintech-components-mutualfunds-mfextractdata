@@ -59,12 +59,20 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->downloadMfSchemesData();
                 $this->mfExtractDataPackage->extractMfSchemesData();
                 $this->mfExtractDataPackage->processMfSchemesData();
+                if ($this->config->databasetype !== 'db') {
+                    if ($this->postData()['downloadnav'] != 'true') {
+                        $this->mfExtractDataPackage->reIndexMfSchemesData();
+                    }
+                }
             }
 
             if ($this->postData()['downloadnav'] == 'true') {
                 $this->mfExtractDataPackage->downloadMfNavsData();
                 $this->mfExtractDataPackage->extractMfNavsData();
                 $this->mfExtractDataPackage->processMfNavsData();
+                if ($this->config->databasetype !== 'db') {
+                    $this->mfExtractDataPackage->reIndexMfSchemesData();
+                }
             }
 
             $this->addResponse(
@@ -105,6 +113,19 @@ class ExtractdataComponent extends BaseComponent
                     ]
                 ]
             );
+
+            if ($this->config->databasetype !== 'db') {
+                if ($this->postData()['downloadnav'] != 'true') {
+                    $methods = array_merge($methods,
+                        [
+                            [
+                                'method'    => 'reIndexMfSchemesData',
+                                'text'      => 'Re-indexing Mutual Fund Schemes Data...',
+                            ]
+                        ]
+                    );
+                }
+            }
         }
 
         if ($this->postData()['downloadnav'] == 'true') {
@@ -127,6 +148,17 @@ class ExtractdataComponent extends BaseComponent
                     ]
                 ]
             );
+
+            if ($this->config->databasetype !== 'db') {
+                $methods = array_merge($methods,
+                    [
+                        [
+                            'method'    => 'reIndexMfNavsData',
+                            'text'      => 'Re-indexing Mutual Fund Nav Data...',
+                        ]
+                    ]
+                );
+            }
         }
 
         $this->basepackages->progress->init(null, 'mfextractdata')->registerMethods($methods);
