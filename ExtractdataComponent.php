@@ -59,10 +59,10 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->downloadMfSchemesData();
                 $this->mfExtractDataPackage->extractMfSchemesData();
                 $this->mfExtractDataPackage->processMfSchemesData();
-                if ($this->config->databasetype !== 'db') {
-                    if ($this->postData()['downloadnav'] != 'true') {
-                        $this->mfExtractDataPackage->reIndexMfSchemesData();
-                    }
+                if ($this->config->databasetype !== 'db' &&
+                    $this->postData()['downloadnav'] != 'true'
+                ) {
+                    $this->mfExtractDataPackage->reIndexMfSchemesData();
                 }
             }
 
@@ -70,7 +70,9 @@ class ExtractdataComponent extends BaseComponent
                 $this->mfExtractDataPackage->downloadMfNavsData();
                 $this->mfExtractDataPackage->extractMfNavsData();
                 $this->mfExtractDataPackage->processMfNavsData();
-                if ($this->config->databasetype !== 'db') {
+                if ($this->config->databasetype !== 'db' &&
+                    $this->postData()['schemes'] != 'true'
+                ) {
                     $this->mfExtractDataPackage->reIndexMfSchemesData();
                 }
             }
@@ -114,17 +116,17 @@ class ExtractdataComponent extends BaseComponent
                 ]
             );
 
-            if ($this->config->databasetype !== 'db') {
-                if ($this->postData()['downloadnav'] != 'true') {
-                    $methods = array_merge($methods,
+            if ($this->config->databasetype !== 'db' &&
+                $this->postData()['downloadnav'] != 'true'
+            ) {
+                $methods = array_merge($methods,
+                    [
                         [
-                            [
-                                'method'    => 'reIndexMfSchemesData',
-                                'text'      => 'Re-indexing Mutual Fund Schemes Data...',
-                            ]
+                            'method'    => 'reIndexMfSchemesData',
+                            'text'      => 'Re-indexing Mutual Fund Schemes Data...',
                         ]
-                    );
-                }
+                    ]
+                );
             }
         }
 
@@ -149,11 +151,13 @@ class ExtractdataComponent extends BaseComponent
                 ]
             );
 
-            if ($this->config->databasetype !== 'db') {
+            if ($this->config->databasetype !== 'db' &&
+                $this->postData()['schemes'] != 'true'
+            ) {
                 $methods = array_merge($methods,
                     [
                         [
-                            'method'    => 'reIndexMfNavsData',
+                            'method'    => 'reIndexMfSchemesData',
                             'text'      => 'Re-indexing Mutual Fund Nav Data...',
                         ]
                     ]
@@ -170,7 +174,7 @@ class ExtractdataComponent extends BaseComponent
     {
         $this->requestIsPost();
 
-        $this->mfExtractDataPackage->processMfNavsData(false, true, $this->postData());
+        $this->mfExtractDataPackage->processMfNavsData($this->postData());
 
         $this->addResponse(
             $this->mfExtractDataPackage->packagesData->responseMessage,
