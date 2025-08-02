@@ -174,6 +174,10 @@ class ExtractdataComponent extends BaseComponent
     {
         $this->requestIsPost();
 
+        if (isset($data['force']) && $data['force'] == 'true') {
+            $this->mfExtractDataPackage->processMfSchemesData($this->postData());
+        }
+
         $this->mfExtractDataPackage->processMfNavsData($this->postData());
 
         $this->addResponse(
