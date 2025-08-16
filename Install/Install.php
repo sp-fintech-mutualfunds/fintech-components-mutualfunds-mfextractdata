@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Fintech\Components\Mf\Extractdata\Install;
+namespace Apps\Fintech\Components\Mf\Tools\Extractdata\Install;
 
 use System\Base\BasePackage;
 use System\Base\Providers\ModulesServiceProvider\MenuInstaller;
