@@ -59,7 +59,7 @@ class ExtractdataComponent extends BaseComponent
             if ($this->postData()['schemes'] == 'true') {
                 $this->mfToolsExtractDataPackage->downloadMfSchemesData();
                 $this->mfToolsExtractDataPackage->extractMfSchemesData();
-                $this->mfToolsExtractDataPackage->processMfSchemesData();
+                $this->mfToolsExtractDataPackage->processMfSchemesData($this->postData());
                 if ($this->config->databasetype !== 'db' &&
                     $this->postData()['downloadnav'] != 'true'
                 ) {
@@ -70,7 +70,7 @@ class ExtractdataComponent extends BaseComponent
             if ($this->postData()['downloadnav'] == 'true') {
                 $this->mfToolsExtractDataPackage->downloadMfNavsData();
                 $this->mfToolsExtractDataPackage->extractMfNavsData();
-                $this->mfToolsExtractDataPackage->processMfNavsData();
+                $this->mfToolsExtractDataPackage->processMfNavsData($this->postData());
                 if ($this->config->databasetype !== 'db' &&
                     $this->postData()['schemes'] != 'true'
                 ) {
